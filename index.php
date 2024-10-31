@@ -60,6 +60,10 @@ Author URL: http://w3layouts.com
                         <li class="nav-item @@about__active">
                             <a class="nav-link" href="about.html">About</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin.php">Admin</a>
+                                <!-- <i class="fa fa-user-circle-o"></i>Admin</a> -->
+                        </li>
                     </ul>
 
                     <!--/search-right-->

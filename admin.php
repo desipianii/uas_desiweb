@@ -93,6 +93,27 @@ if ($action === 'edit' && isset($_GET['id'])) {
     $edit_result = $conn->query($edit_sql);
     $edit_row = $edit_result->fetch_assoc(); // Ambil data artikel yang ingin diedit
 }
+
+// Mengambil data artikel dari database
+$search_query = '';
+if (isset($_GET['search']) && !empty($_GET['search'])) {
+    $search = $conn->real_escape_string($_GET['search']); // Mencegah SQL injection
+    $keywords = explode(' ', $search); // Memisahkan kata kunci berdasarkan spasi
+    $search_conditions = [];
+
+    foreach ($keywords as $keyword) {
+        $search_conditions[] = "(judul LIKE '%$keyword%' OR isi LIKE '%$keyword%')";
+    }
+
+    // Menggabungkan kondisi pencarian dengan "AND" untuk memastikan semua kata kunci ditemukan
+    $search_query = " WHERE " . implode(' AND ', $search_conditions);
+}
+
+$sql = "SELECT * FROM artikel" . $search_query; // Menambahkan pencarian ke query
+$result = $conn->query($sql);
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -102,6 +123,7 @@ if ($action === 'edit' && isset($_GET['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Artikel</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/sb.css">
 </head>
 <body>
     <h1 style="text-align: center;">Dashboard Artikel</h1>
@@ -161,9 +183,17 @@ if ($action === 'edit' && isset($_GET['id'])) {
         </table>
     <?php else: ?>
         <!-- Tabel Artikel -->
-        <div style="margin-bottom: 20px;">
+        <!-- <div style="margin-bottom: 20px;">
             <a href="admin.php?action=add" class="btn btn-add">+ Tambah Artikel</a>
-        </div>
+        </div> -->
+        <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+    <a href="admin.php?action=add" class="btn btn-add">+ Tambah Artikel</a>
+    <form action="admin.php" method="get" style="display: flex; align-items: center;">
+        <input type="text" name="search" placeholder="Cari artikel..." style="padding: 8px; margin-left: 20px;">
+        <input type="submit" value="Cari" style="padding: 8px;">
+    </form>
+</div>
+
         <table border="1" cellpadding="10" cellspacing="0" style="width: 100%;">
             <thead>
                 <tr>
