@@ -166,6 +166,8 @@ $result = $conn->query($sql);
                         <?php if ($action === 'edit'): ?>
                             <br>
                             <img src="<?= htmlspecialchars($edit_row['images']) ?>" alt="Gambar" style="width: 100px; height: auto;"/>
+                            <p style="color: grey; font-style: italic;">Ini adalah gambar sebelumnya. Upload gambar baru jika ingin mengganti.</p>
+                        
                         <?php endif; ?>
                     </td>
                 </tr>
@@ -182,6 +184,7 @@ $result = $conn->query($sql);
             </form>
         </table>
     <?php else: ?>
+
         <!-- Tabel Artikel -->
         <!-- Fitur pencarian -->
         <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; background-color: #f0f0f0; padding: 10px; border-radius: 5px;">
