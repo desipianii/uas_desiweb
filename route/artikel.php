@@ -39,7 +39,7 @@ $result = $conn->query($sql);
             <div class="grids5-info img-block-mobile mt-5">
                 <div class="blog-info align-self">
                     <span class="category"><?= htmlspecialchars($row['kategori']) ?></span>
-                    <a href="#blog-single" class="blog-desc mt-0"><?= htmlspecialchars($row['judul']) ?></a>
+                    <a href="detail.php?id=<?= $row['id'] ?>" class="blog-desc mt-0"><?= htmlspecialchars($row['judul']) ?></a>
                     <p><?= htmlspecialchars(substr($row['isi'], 0, 100)) ?>...</p>
                     <div class="author align-items-center mt-3 mb-1">
                         <a href="#author"><?= htmlspecialchars($row['author']) ?></a>
@@ -53,7 +53,7 @@ $result = $conn->query($sql);
                         </li>
                     </ul>
                 </div>
-                <a href="#blog-single" class="d-block zoom mt-md-0 mt-3">
+                <a href="detail.php?id=<?= $row['id'] ?>" class="d-block zoom mt-md-0 mt-3">
                     <img src="<?= htmlspecialchars($row['images']) ?>" alt="Gambar Artikel" class="img-fluid radius-image news-image">
                 </a>
             </div>
