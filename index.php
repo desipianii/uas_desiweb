@@ -51,7 +51,7 @@ Author URL: http://w3layouts.com
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item @@cp__active" href="technology.html">Technology posts</a>
-                                <a class="dropdown-item @@ls__active" href="lifestyle.html">Lifestyle posts</a>
+                                <a class="dropdown-item @@ls__active" href="lifestyle.php">Lifestyle posts</a>
                             </div>
                         </li>
                         <li class="nav-item @@contact__active">
@@ -127,9 +127,7 @@ Author URL: http://w3layouts.com
             <div class="row">
                 <div class="col-lg-9 most-recent">
                     <h3 class="section-title-left">Most Recent posts </h3>
-
                      <?php include 'route/artikel.php';?>
-                    <!-- //pagination -->
                 </div>
                 <div class="col-lg-3 trending mt-lg-0 mt-5 mb-lg-5">
                     <div class="pos-sticky">

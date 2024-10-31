@@ -49,7 +49,7 @@ Author URL: http://w3layouts.com
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item active" href="technology.html">Technology posts</a>
-							<a class="dropdown-item @@ls__active" href="lifestyle.html">Lifestyle posts</a>
+							<a class="dropdown-item @@ls__active" href="lifestyle.php">Lifestyle posts</a>
 						</div>
 					</li>
 					<li class="nav-item @@contact__active">
