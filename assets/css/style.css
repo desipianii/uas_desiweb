@@ -1,79 +1,77 @@
-
+/* Gaya Umum */
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
-    background-color: #f4f4f9;
+    background-color: #f4f4f4; /* Latar belakang abu-abu terang */
 }
-h1 {
+
+h1, h2 {
     text-align: center;
-    color: #333;
+    color: #333; /* Warna teks gelap */
 }
-a {
-    text-decoration: none;
-    color: #007bff;
-}
-a:hover {
-    color: #0056b3;
-}
+
+/* Tabel */
 table {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+    border-collapse: collapse; /* Menghapus spasi antar border */
+    margin-bottom: 20px;
 }
+
 table, th, td {
-    border: 1px solid #ddd;
+    border: 1px solid #ddd; /* Border tabel */
 }
+
 th, td {
-    padding: 12px;
-    text-align: center; 
+    padding: 8px; /* Jarak dalam sel tabel */
+    text-align: center;
 }
+
 th {
-    background-color: #f2f2f2;
-    color: #333;
+    background-color: rgb(44, 119, 231); /* Warna latar belakang header tabel */
+    color: white; /* Warna teks putih untuk header */
 }
-tr:nth-child(even) {
-    background-color: #f9f9f9;
+
+/* Form dan Input */
+input[type="text"], input[type="date"], input[type="number"], select, textarea {
+    width: 100%; /* Lebar penuh */
+    padding: 8px; /* Jarak dalam input */
+    margin: 5px 0; /* Margin vertikal */
+    border: 1px solid #ccc; /* Border input */
+    border-radius: 4px; /* Sudut melengkung */
+    box-sizing: border-box; /* Menyertakan padding dalam ukuran total */
 }
-.action-buttons a {
-    padding: 6px 12px;
-    color: white;
-    border-radius: 5px;
-    font-size: 0.9em;
-    margin-right: 4px;
-    text-decoration: none;
+
+/* Tombol */
+.btn {
+    padding: 10px 15px; /* Padding untuk tombol */
+    background-color: rgb(69, 139, 245); /* Warna latar belakang biru */
+    color: #fff; /* Warna teks putih */
+    border: none; /* Tanpa border */
+    border-radius: 4px; /* Sudut melengkung */
+    cursor: pointer; /* Tangan saat hover */
+    text-decoration: none; /* Menghilangkan garis bawah pada tautan */
+    margin-bottom: 15px; /* Menambahkan jarak bawah pada tombol */
 }
-.action-buttons .edit {
-    background-color: #4CAF50;
+
+.btn:hover {
+    background-color: rgb(12, 82, 187); /* Warna lebih gelap saat hover */
 }
-.action-buttons .delete {
-    background-color: #f44336;
+
+.btn-add {
+    background-color: rgb(69, 139, 245);
+    padding: 10px 15px; /* Padding untuk tombol */
+    color: #fff; /* Warna teks putih */
+    border: none; /* Tanpa border */
+    border-radius: 4px; /* Sudut melengkung */
+    cursor: pointer; /* Tangan saat hover */
+    text-decoration: none; /* Menghilangkan garis bawah pada tautan */
+    margin-bottom: 15px; /* Menambahkan jarak bawah pada tombol */
 }
-form {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+.btn-back {
+    background-color: rgb(69, 139, 245); /* Warna biru untuk tombol kembali */
 }
-form input[type="text"],
-form input[type="date"],
-form select,
-form textarea {
-    width: 100%;
-    padding: 8px;
-    margin: 8px 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-form button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-form button:hover {
-    background-color: #45a049;
+
+.btn-back:hover {
+    background-color: rgb(12, 82, 187); /* Warna lebih gelap untuk tombol kembali saat hover */
 }
