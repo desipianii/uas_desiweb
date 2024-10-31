@@ -24,6 +24,7 @@ if ($action == 'dashboard') {
     <head>
         <meta charset="UTF-8">
         <title>Admin Dashboard</title>
+        <link rel="stylesheet" href="assets/css/style.css">
     </head>
     <body>
         <h1>Dashboard Admin</h1>
