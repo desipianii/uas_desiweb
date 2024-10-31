@@ -23,11 +23,11 @@ table, th, td {
 
 th, td {
     padding: 8px; /* Jarak dalam sel tabel */
-    text-align: center;
+    text-align: left;
 }
 
 th {
-    background-color: rgb(44, 119, 231); /* Warna latar belakang header tabel */
+    background-color: #2088ce; /* Warna latar belakang header tabel */
     color: white; /* Warna teks putih untuk header */
 }
 
@@ -44,34 +44,22 @@ input[type="text"], input[type="date"], input[type="number"], select, textarea {
 /* Tombol */
 .btn {
     padding: 10px 15px; /* Padding untuk tombol */
-    background-color: rgb(69, 139, 245); /* Warna latar belakang biru */
+    background-color:  #2088ce; /* Warna latar belakang biru */
     color: #fff; /* Warna teks putih */
     border: none; /* Tanpa border */
     border-radius: 4px; /* Sudut melengkung */
     cursor: pointer; /* Tangan saat hover */
     text-decoration: none; /* Menghilangkan garis bawah pada tautan */
-    margin-bottom: 15px; /* Menambahkan jarak bawah pada tombol */
 }
 
 .btn:hover {
-    background-color: rgb(12, 82, 187); /* Warna lebih gelap saat hover */
-}
-
-.btn-add {
-    background-color: rgb(69, 139, 245);
-    padding: 10px 15px; /* Padding untuk tombol */
-    color: #fff; /* Warna teks putih */
-    border: none; /* Tanpa border */
-    border-radius: 4px; /* Sudut melengkung */
-    cursor: pointer; /* Tangan saat hover */
-    text-decoration: none; /* Menghilangkan garis bawah pada tautan */
-    margin-bottom: 15px; /* Menambahkan jarak bawah pada tombol */
+    background-color:  #0964a1; /* Warna lebih gelap saat hover */
 }
 
 .btn-back {
-    background-color: rgb(69, 139, 245); /* Warna biru untuk tombol kembali */
+    background-color:  #2088ce; /* Warna biru untuk tombol kembali */
 }
 
 .btn-back:hover {
-    background-color: rgb(12, 82, 187); /* Warna lebih gelap untuk tombol kembali saat hover */
+    background-color: #0964a1; /* Warna lebih gelap untuk tombol kembali saat hover */
 }

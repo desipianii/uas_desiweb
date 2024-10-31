@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $author = $_POST['author'];
     $tanggal_publikasi = $_POST['tanggal_publikasi'];
     $views = $_POST['views'];
-    $id = $_POST['id'] ?? null; // Mendapatkan ID untuk update, default null jika tidak ada
+    $id = $_POST['id']; // Mendapatkan ID untuk update
 
     // Proses upload gambar
     $target_dir = "uploads/"; // Folder untuk menyimpan gambar
@@ -27,65 +27,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
     // Cek apakah file gambar adalah gambar
-    if ($_FILES["images"]["tmp_name"]) {
-        $check = getimagesize($_FILES["images"]["tmp_name"]);
-        if ($check === false) {
-            echo "File yang diunggah bukan gambar.";
-            $uploadOk = 0;
-        }
-
-        // Cek ukuran file
-        if ($_FILES["images"]["size"] > 5000000) { // Cek jika ukuran file lebih dari 5MB
-            echo "Maaf, ukuran file terlalu besar.";
-            $uploadOk = 0;
-        }
-
-        // Cek format file
-        if (!in_array($imageFileType, ['jpg', 'png', 'jpeg', 'gif'])) {
-            echo "Maaf, hanya file JPG, JPEG, PNG & GIF yang diizinkan.";
-            $uploadOk = 0;
-        }
-
-        // Jika tidak ada kesalahan, coba unggah file
-        if ($uploadOk == 1) {
-            if (!move_uploaded_file($_FILES["images"]["tmp_name"], $target_file)) {
-                echo "Maaf, terjadi kesalahan saat mengunggah file.";
-                $uploadOk = 0;
-            }
-        }
-    } else {
-        // Jika tidak ada file yang di-upload, gunakan gambar lama
-        $target_file = null; // Menandakan bahwa tidak ada file baru yang di-upload
+    $check = getimagesize($_FILES["images"]["tmp_name"]);
+    if($check === false) {
+        echo "File yang diunggah bukan gambar.";
+        $uploadOk = 0;
     }
 
-    // Jika ID ada, maka lakukan update
-    if (!empty($id)) {
-        // Jika tidak ada gambar baru, ambil gambar lama dari database
-        if ($target_file === null) {
-            $old_image_query = "SELECT images FROM artikel WHERE id=$id";
-            $old_image_result = $conn->query($old_image_query);
-            if ($old_image_result && $old_image_row = $old_image_result->fetch_assoc()) {
-                $target_file = $old_image_row['images']; // Gunakan gambar lama
+    // Cek ukuran file
+    if ($_FILES["images"]["size"] > 5000000) { // Cek jika ukuran file lebih dari 5MB
+        echo "Maaf, ukuran file terlalu besar.";
+        $uploadOk = 0;
+    }
+
+    // Cek format file
+    if(!in_array($imageFileType, ['jpg', 'png', 'jpeg', 'gif'])) {
+        echo "Maaf, hanya file JPG, JPEG, PNG & GIF yang diizinkan.";
+        $uploadOk = 0;
+    }
+
+    // Jika tidak ada kesalahan, coba unggah file
+    if ($uploadOk == 1) {
+        if (move_uploaded_file($_FILES["images"]["tmp_name"], $target_file)) {
+            // Jika ID ada, maka lakukan update
+            if (!empty($id)) {
+                $sql = "UPDATE artikel SET judul='$judul', isi='$isi', kategori='$kategori', author='$author', tanggal_publikasi='$tanggal_publikasi', images='$target_file', views='$views' WHERE id=$id";
             } else {
-                echo "Gagal mendapatkan gambar lama: " . $conn->error;
-                exit();
+                // Jika tidak ada ID, berarti kita menambah artikel baru
+                $sql = "INSERT INTO artikel (judul, isi, kategori, author, tanggal_publikasi, images, views) 
+                        VALUES ('$judul', '$isi', '$kategori', '$author', '$tanggal_publikasi', '$target_file', '$views')";
             }
+            
+            if ($conn->query($sql) === TRUE) {
+                echo "Artikel berhasil disimpan.";
+                header("Location: admin.php"); // Redirect ke admin.php setelah submit
+                exit();
+            } else {
+                echo "Gagal menyimpan artikel: " . $conn->error; // Menampilkan kesalahan
+            }            
+        } else {
+            echo "Maaf, terjadi kesalahan saat mengunggah file.";
         }
-        // Update artikel
-        $sql = "UPDATE artikel SET judul='$judul', isi='$isi', kategori='$kategori', author='$author', tanggal_publikasi='$tanggal_publikasi', images='$target_file', views='$views' WHERE id=$id";
-    } else {
-        // Jika tidak ada ID, berarti kita menambah artikel baru
-        $sql = "INSERT INTO artikel (judul, isi, kategori, author, tanggal_publikasi, images, views) 
-                VALUES ('$judul', '$isi', '$kategori', '$author', '$tanggal_publikasi', '$target_file', '$views')";
-    }
-
-    // Eksekusi query
-    if ($conn->query($sql) === TRUE) {
-        echo "Artikel berhasil disimpan.";
-        header("Location: admin.php"); // Redirect ke dashboard setelah submit
-        exit();
-    } else {
-        echo "Gagal menyimpan artikel: " . $conn->error; // Menampilkan kesalahan
     }
 }
 
@@ -171,57 +152,59 @@ if ($action === 'edit' && isset($_GET['id'])) {
                     <td><input type="number" name="views" required style="width: 100%;" value="<?= $action === 'edit' ? $edit_row['views'] : '' ?>"></td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="text-align: left;">
+                    <td colspan="2" style="text-align: center;">
                         <input type="submit" value="<?= $action === 'edit' ? 'Update Artikel' : 'Tambah Artikel' ?>" class="btn btn-add">
-                        <a href="admin.php" class="btn btn-cancel">Batal</a>
+                        <a href="admin.php" class="btn btn-back">Kembali ke Dashboard</a>
                     </td>
                 </tr>
             </form>
         </table>
     <?php else: ?>
-        <!-- Tampilkan Daftar Artikel -->
-        <a href="admin.php?action=add" class="btn-add" style="margin-bottom: 20px;">Tambah Artikel</a>
+        <!-- Tabel Artikel -->
+        <div style="margin-bottom: 20px;">
+            <a href="admin.php?action=add" class="btn btn-add">+ Tambah Artikel</a>
+        </div>
         <table border="1" cellpadding="10" cellspacing="0" style="width: 100%;">
-            <tr>
-                <th>ID</th>
-                <th>Judul</th>
-                <th>Isi</th>
-                <th>Kategori</th>
-                <th>Author</th>
-                <th>Tanggal Publikasi</th>
-                <th>Images</th>
-                <th>Views</th>
-                <th>Aksi</th>
-            </tr>
-            <?php if ($result->num_rows > 0): ?>
-                <?php while ($row = $result->fetch_assoc()): ?>
-                    <tr>
-                        <td><?= $row['id'] ?></td>
-                        <td><?= htmlspecialchars($row['judul']) ?></td>
-                        <td><?= htmlspecialchars($row['isi']) ?></td>
-                        <td><?= htmlspecialchars($row['kategori']) ?></td>
-                        <td><?= htmlspecialchars($row['author']) ?></td>
-                        <td><?= $row['tanggal_publikasi'] ?></td>
-                        <td><img src="<?= htmlspecialchars($row['images']) ?>" alt="Gambar" style="width: 100px; height: auto;"/></td>
-                        <td><?= $row['views'] ?></td>
-                        <td>
-                            <a href="admin.php?action=edit&id=<?= $row['id'] ?>" class="btn btn-edit">Edit</a>
-                            <a href="admin.php?action=delete&id=<?= $row['id'] ?>" class="btn btn-delete" onclick="return confirm('Anda yakin ingin menghapus artikel ini?')">Hapus</a>
-                        </td>
-                    </tr>
-                <?php endwhile; ?>
-            <?php else: ?>
+            <thead>
                 <tr>
-                    <td colspan="9" style="text-align: left;">Tidak ada artikel yang ditemukan.</td>
+                    <th>ID</th>
+                    <th>Judul</th>
+                    <th>Isi</th>
+                    <th>Kategori</th>
+                    <th>Author</th>
+                    <th>Tanggal Publikasi</th>
+                    <th>Images</th>
+                    <th>Views</th>
+                    <th>Aksi</th>
                 </tr>
-            <?php endif; ?>
+            </thead>
+            <tbody>
+                <?php if ($result->num_rows > 0): ?>
+                    <?php while($row = $result->fetch_assoc()): ?>
+                        <tr>
+                            <td><?= $row['id'] ?></td>
+                            <td><?= htmlspecialchars($row['judul']) ?></td>
+                            <td><?= substr(htmlspecialchars($row['isi']), 0, 50) . '...' ?></td>
+                            <td><?= $row['kategori'] ?></td>
+                            <td><?= htmlspecialchars($row['author']) ?></td>
+                            <td><?= $row['tanggal_publikasi'] ?></td>
+                            <td><img src="<?= htmlspecialchars($row['images']) ?>" alt="Gambar" style="width: 50px; height: 50px; object-fit: cover;"></td>
+                            <td><?= $row['views'] ?></td>
+                            <td>
+                                <a href="admin.php?action=edit&id=<?= $row['id'] ?>">Edit</a> |
+                                <a href="admin.php?action=delete&id=<?= $row['id'] ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus artikel ini?')">Hapus</a>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="9" style="text-align: center;">Tidak ada artikel yang ditemukan.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
         </table>
     <?php endif; ?>
-
-    <script src="assets/js/script.js"></script>
 </body>
 </html>
 
-<?php
-$conn->close(); // Tutup koneksi
-?>
+<?php $conn->close(); ?>
