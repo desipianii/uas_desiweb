@@ -183,16 +183,15 @@ $result = $conn->query($sql);
         </table>
     <?php else: ?>
         <!-- Tabel Artikel -->
-        <!-- <div style="margin-bottom: 20px;">
-            <a href="admin.php?action=add" class="btn btn-add">+ Tambah Artikel</a>
-        </div> -->
-        <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+        <!-- Fitur pencarian -->
+        <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; background-color: #f0f0f0; padding: 10px; border-radius: 5px;">
     <a href="admin.php?action=add" class="btn btn-add">+ Tambah Artikel</a>
     <form action="admin.php" method="get" style="display: flex; align-items: center;">
-        <input type="text" name="search" placeholder="Cari artikel..." style="padding: 8px; margin-left: 20px;">
-        <input type="submit" value="Cari" style="padding: 8px;">
+        <input type="text" name="search" placeholder="Cari artikel..." style="padding: 10px; margin-left: 20px;">
+        <input type="submit" value="Cari" style="padding: 10px; background-color: #2088ce; color: white; border: none; border-radius: 5px; cursor: pointer;">
     </form>
 </div>
+
 
         <table border="1" cellpadding="10" cellspacing="0" style="width: 100%;">
             <thead>
