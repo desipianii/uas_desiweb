@@ -25,10 +25,10 @@ Author URL: http://w3layouts.com
         <!--/nav-->
         <nav class="navbar navbar-expand-lg navbar-light fill px-lg-0 py-0 px-3">
             <div class="container">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="index.php">
                     <span class="fa fa-pencil-square-o"></span> Web Programming Blog</a>
                 <!-- if logo is image enable this   
-						<a class="navbar-brand" href="#index.html">
+						<a class="navbar-brand" href="#index.php">
 							<img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
 						</a> -->
                 <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
@@ -42,7 +42,7 @@ Author URL: http://w3layouts.com
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="index.html">Home</a>
+                            <a class="nav-link" href="index.php">Home</a>
                         </li>
                         <li class="nav-item dropdown @@category__active">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
